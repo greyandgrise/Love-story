@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Grey ❤️ Grise | Love Story</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; }
+        /* Mengganti background hitam dengan gradasi romantis */
+        body { 
+            margin: 0; 
+            font-family: 'Poppins', sans-serif; 
+            background: linear-gradient(135deg, #2d0b16 0%, #1a050d 100%); 
+            color: #fce4ec; 
+            text-align: center; 
+            overflow-x: hidden; 
+        }
+        .hidden { display: none; }
+
+        /* LOGIN dengan nuansa lembut */
+        #login { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; background: radial-gradient(circle, #4a1426, #1a050d); }
+        input { padding: 12px; border-radius: 20px; border: 1px solid #ff80ab; background: rgba(255,255,255,0.1); color: white; text-align: center; margin: 10px; outline: none; width: 80%; max-width: 300px; }
+        button { padding: 10px 22px; border: none; border-radius: 20px; background: #ff2e63; color: white; cursor: pointer; transition: 0.3s; font-weight: bold; }
+        button:hover { transform: scale(1.05); background: #ff477e; }
+
+        /* HEADER */
+        header { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; background: linear-gradient(rgba(45, 11, 22, 0.7),rgba(45, 11, 22, 0.7)), url('https://images.unsplash.com/photo-1518199266791-5375a83190b7'); background-size: cover; background-position: center; }
+        h1 { font-family: 'Playfair Display'; font-size: 2.5em; margin: 0 10px; color: #ffccd5; }
+
+        section { padding: 50px 20px; }
+        .gallery img { width: 100%; max-width: 150px; margin: 10px; border-radius: 10px; border: 2px solid #ff80ab; }
+        
+        /* Chat box dengan nuansa lebih soft */
+        .chat { background: rgba(255, 255, 255, 0.05); padding: 20px; border-radius: 15px; max-width: 400px; margin: auto; text-align: left; border: 1px solid rgba(255, 128, 171, 0.3); }
+
+        .heart { position: fixed; color: #ff477e; animation: fall 6s linear forwards; pointer-events: none; }
+        @keyframes fall { 0% { transform: translateY(-10vh); opacity: 1; } 100% { transform: translateY(100vh); opacity: 0; } }
+
+        #ending { position: fixed; inset: 0; background: rgba(45, 11, 22, 0.96); display: flex; flex-direction: column; justify-content: center; align-items: center; opacity: 0; transition: 1.2s; z-index: 999; visibility: hidden; }
+        #ending.show { opacity: 1; visibility: visible; }
+        #text { font-size: 1.5em; font-weight: bold; color: #ffccd5; }
+        #sub { margin-top: 15px; opacity: 0; transition: 1.5s; }
+        #sub.show { opacity: 1; }
+
+        #musicBtn { position: fixed; bottom: 20px; right: 20px; z-index: 1000; background: #ff2e63; color: white; border-radius: 50%; padding: 15px; border: none; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+<audio id="music" loop>
+    <source src="lagu.mp3" type="audio/mpeg">
+</audio>
+
+<button id="musicBtn" onclick="toggleMusic()">🎵</button>
+
+<div id="login">
+    <h2>🔒 Private Love Story</h2>
+    <input type="password" id="pass" placeholder="Password">
+    <button onclick="login()">Masuk</button>
+</div>
+
+<div id="content" class="hidden">
+    <header>
+        <h1>GREY ❤️ GRISE</h1>
+        <p>Some stories are written by fate...</p>
+    </header>
+
+    <section>
+        <h2>Our Story</h2>
+        <p>Dari tidak sengaja menjadi cinta ❤️</p>
+
+        <p>05 Feb 2026 </p>
+        <p>15 Mar 2026</p> 
+    </section>
+
+    <section>
+        <h2>Memories 📸</h2>
+        <div class="gallery">
+            <img src="1.jpg" alt="Memory 1">
+            <img src="2.jpg" alt="Memory 2">
+            <img src="3.jpg" alt="Memory 3">
+        </div>
+    </section>
+
+    <section>
+        <h2>Chat 💬</h2>
+        <div class="chat">
+            <p><b>Grise:</b> Org belanda yeah</p>
+            <p><b>Me:</b> kenapa gituu</p>
+            <p><b>Grise:</b> I c u like dutch</p>
+            <p><b>Me:</b> why</p>
+            <p><b>Grise:</b> Nothingg</p>
+            <p><b>Grise:</b> Km suka belanda, penjajah ya</p>
+            <p><b>Me:</b> ngga</p>
+            <p><b>Me:</b> la knp</p>
+            <p><b>Grise:</b> ya gpp anjr</p>
+            <p><b>Grise:</b> Namanya jg nyari topik</p>
+
+        </div>
+    </section>
+
+    <section style="padding-bottom: 100px;">
+        <h2>Love Letter 💌</h2>
+        <p>Eu te amo Grise ❤️ Kamu adalah rumahku.</p>
+    </section>
+</div>
+
+<div id="ending">
+    <div id="text"></div>
+    <div id="sub">Will you stay with me forever? 💍❤️</div>
+</div>
+
+<canvas id="confetti"></canvas>
+
+<script>
+    function login(){
+        const p = document.getElementById("pass").value;
+        if(p.trim() === "windicintaalfin"){
+            document.getElementById("login").style.display = "none";
+            document.getElementById("content").classList.remove("hidden");
+            const music = document.getElementById("music");
+            music.play().catch(e => console.log("Autoplay diblokir browser"));
+        } else {
+            alert("Password salah 😢");
+        }
+    }
+
+    function toggleMusic(){
+        const m = document.getElementById("music");
+        m.paused ? m.play() : m.pause();
+    }
+
+    setInterval(()=>{
+        if(document.querySelectorAll('.heart').length > 15) return;
+        const h = document.createElement("div");
+        h.className = "heart";
+        h.innerHTML = "❤️";
+        h.style.left = Math.random() * 95 + "vw";
+        h.style.fontSize = (15 + Math.random() * 10) + "px";
+        document.body.appendChild(h);
+        setTimeout(() => h.remove(), 6000);
+    }, 800);
+
+    let shown = false;
+    window.addEventListener("scroll", () => {
+        if(!shown && (window.innerHeight + window.scrollY) >= document.body.offsetHeight - 50) {
+            shown = true;
+            document.getElementById("ending").classList.add("show");
+            typeText("I LOVE YOU FOREVER, GRISE ❤️");
+            setTimeout(() => document.getElementById("sub").classList.add("show"), 2500);
+            confettiLite();
+        }
+    });
+
+    function typeText(t){
+        let i = 0;
+        const el = document.getElementById("text");
+        const interval = setInterval(() => {
+            el.innerHTML += t[i];
+            i++;
+            if(i >= t.length) clearInterval(interval);
+        }, 100);
+    }
+
+    function confettiLite(){
+        const c = document.getElementById("confetti");
+        const ctx = c.getContext("2d");
+        c.width = window.innerWidth;
+        c.height = window.innerHeight;
+        let p = Array.from({length: 50}, () => ({x: Math.random()*c.width, y: Math.random()*c.height, v: Math.random()*2+1}));
+        function draw(){
+            ctx.clearRect(0,0,c.width,c.height);
+            ctx.fillStyle = "#ff2e63";
+            p.forEach(o => {
+                o.y += o.v;
+                ctx.fillRect(o.x, o.y, 4, 4);
+                if(o.y > c.height) o.y = 0;
+            });
+            requestAnimationFrame(draw);
+        }
+        draw();
+    }
+</script>
+</body>
+</html>
